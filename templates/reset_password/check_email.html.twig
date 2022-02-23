@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		{% block stylesheets %}
+         <link rel="stylesheet" href="font/iconsmind-s/css/iconsminds.css" />
+        <link rel="stylesheet" href="font/simple-line-icons/css/simple-line-icons.css" />
+			<link rel="stylesheet" href="css/vendor/bootstrap.min.css"/>
+			<link rel="stylesheet" href="css/vendor/bootstrap.rtl.only.min.css"/>
+			<link rel="stylesheet" href="css/vendor/bootstrap-float-label.min.css"/>
+			<link rel="stylesheet" href="css/main.css"/>
+		{% endblock %}
+	</head><body class="background show-spinner no-footer">
+   <div class="fixed-background"></div>
+    <main>
+        <div class="container">
+            <div class="row h-100">
+                <div class="col-12 col-md-10 mx-auto my-auto">
+                    <div class="card auth-card">
+                        <div class="position-relative image-side ">
+
+                            <p class=" text-white h2">MAGIC IS IN THE DETAILS</p>
+
+                         
+                        </div>
+
+    <p class=" text-white h2">  If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password.
+        This link will expire in {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.</p>
+
+   
+    <p>If you don't receive an email please check your spam folder or <a href="{{ path('app_forgot_password_request') }}">try again</a>.</p>
+                 
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+<script src="js/vendor/jquery-3.3.1.min.js"></script>
+    <script src="js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="js/dore.script.js"></script>
+    <script src="js/scripts.js"></script>
+ </body>

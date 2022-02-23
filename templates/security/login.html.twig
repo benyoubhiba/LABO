@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		{% block stylesheets %}
+         <link rel="stylesheet" href="font/iconsmind-s/css/iconsminds.css" />
+        <link rel="stylesheet" href="font/simple-line-icons/css/simple-line-icons.css" />
+			<link rel="stylesheet" href="css/vendor/bootstrap.min.css"/>
+			<link rel="stylesheet" href="css/vendor/bootstrap.rtl.only.min.css"/>
+			<link rel="stylesheet" href="css/vendor/bootstrap-float-label.min.css"/>
+			<link rel="stylesheet" href="css/main.css"/>
+		{% endblock %}
+	</head>
+
+<body class="background show-spinner no-footer">
+   <div class="fixed-background"></div>
+    <main>
+        <div class="container">
+            <div class="row h-100">
+                <div class="col-12 col-md-10 mx-auto my-auto">
+                    <div class="card auth-card">
+                        <div class="position-relative image-side ">
+
+                            <p class=" text-white h2">MAGIC IS IN THE DETAILS</p>
+
+                         
+                        </div>
+                        <div class="form-side">
+                            <a href="Dashboard.Default.html">
+                                <span class="logo-single"></span>
+                            </a>
+                            <h6 class="mb-4">Login</h6>
+                           <form  class="background show-spinner no-footer" method="post"> 
+                           {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    {% if app.user %}
+        <div class="mb-3">
+            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% endif %}
+                                <label for="inputUsername"class="form-group has-float-label mb-4">
+                                    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus  />
+                                    <span>Nom</span>
+                                </label>
+
+                                <label class="form-group has-float-label mb-4"for="inputPassword">
+                                    <input class="form-control" type="password" placeholder=""type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required />
+                                    <span>Password</span>
+                      </label>
+                                   <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}"
+    
+                <div class="d-flex justify-content-between align-items-center">
+                                    <a href="{{ path('app_forgot_password_request') }}">Forget password?</a>
+                                    <button class="btn btn-primary btn-lg btn-shadow" type="submit">LOGIN</button>
+                                </div>
+                             </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+<script src="js/vendor/jquery-3.3.1.min.js"></script>
+    <script src="js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="js/dore.script.js"></script>
+    <script src="js/scripts.js"></script>
+ </body>
