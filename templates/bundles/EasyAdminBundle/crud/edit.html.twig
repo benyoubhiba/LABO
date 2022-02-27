@@ -2,9 +2,7 @@
 {# @var entity \EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto #}
 {% extends ea.templatePath('layout') %}
 {% form_theme edit_form with ea.crud.formThemes only %}
-
 {% trans_default_domain ea.i18n.translationDomain %}
-
 {% block body_id 'ea-edit-' ~ entity.name ~ '-' ~ entity.primaryKeyValue %}
 {% block body_class 'ea-edit ea-edit-' ~ entity.name %}
 
@@ -14,14 +12,31 @@
         {{ htmlContent|raw }}
     {% endfor %}
 {% endblock %}
-
+ {% block  main%}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <h1>Dashboard</h1>
+                    <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
+                        <ol class="breadcrumb pt-0">
+                            <li class="breadcrumb-item">
+                                <a href="#">Home</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="#">Library</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Data</li>
+                        </ol>
+                    </nav>
+                    <div class="separator mb-5"></div>
+                </div>
 {% block configured_body_contents %}
     {{ parent() }}
     {% for htmlContent in edit_form.vars.ea_crud_form.assets.bodyContents %}
         {{ htmlContent|raw }}
     {% endfor %}
 {% endblock %}
-
+ {% endblock %}
 {% block configured_stylesheets %}
     {{ parent() }}
     {{ include('@EasyAdmin/includes/_css_assets.html.twig', { assets: edit_form.vars.ea_crud_form.assets.cssAssets }, with_context = false) }}
@@ -49,7 +64,7 @@
     {% endfor %}
 {% endblock %}
 
-{% block main %}
+{% block form %}
     {% block edit_form %}
         {{ form(edit_form) }}
     {% endblock edit_form %}
@@ -57,4 +72,8 @@
     {% block delete_form %}
         {{ include('@EasyAdmin/crud/includes/_delete_form.html.twig', { entity_id: entity.primaryKeyValue }, with_context = false) }}
     {% endblock delete_form %}
+{% endblock %}
+</div>
+    
+
 {% endblock %}

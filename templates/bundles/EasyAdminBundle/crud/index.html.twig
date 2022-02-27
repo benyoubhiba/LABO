@@ -17,43 +17,6 @@
 {% endblock %}
 
 {% set has_batch_actions = batch_actions|length > 0 %}
-{% block page_actions %}
-    {% if filters|length > 0 %}
-        <div class="datagrid-filters">
-            {% block filters %}
-                {% set applied_filters = ea.request.query.all['filters']|default([])|keys %}
-                <div class="btn-group action-filters">
-                    <a href="#" data-href="{{ ea_url().setAction('renderFilters').includeReferrer() }}" class="btn btn-secondary btn-labeled btn-labeled-right action-filters-button disabled {{ applied_filters ? 'action-filters-applied' }}" data-bs-toggle="modal" data-bs-target="#modal-filters">
-                        <i class="fa fa-filter fa-fw"></i> {{ 'filter.title'|trans(ea.i18n.translationParameters, 'EasyAdminBundle') }}{% if applied_filters %} <span class="text-primary">({{ applied_filters|length }})</span>{% endif %}
-                    </a>
-                    {% if applied_filters %}
-                        <a href="{{ ea_url().unset('filters') }}" class="btn btn-secondary action-filters-reset">
-                            <i class="fa fa-close"></i>
-                        </a>
-                    {% endif %}
-                </div>
-            {% endblock filters %}
-        </div>
-    {% endif %}
-
-    {% block global_actions %}
-        <div class="global-actions">
-            {% for action in global_actions %}
-                {{ include(action.templatePath, { action: action }, with_context = false) }}
-            {% endfor %}
-        </div>
-    {% endblock global_actions %}
-    {% block batch_actions %}
-        {% if has_batch_actions %}
-            <div class="batch-actions" style="display: none">
-                {% for action in batch_actions %}
-                    {{ include(action.templatePath, { action: action }, with_context = false) }}
-                {% endfor %}
-            </div>
-        {% endif %}
-    {% endblock %}
-{% endblock page_actions %}
-
 {% block main %}
     {# sort can be multiple; let's consider the sorting field the first one #}
     {% set sort_field_name = app.request.get('sort')|keys|first %}
@@ -63,21 +26,110 @@
     {% set has_search = ea.crud.isSearchEnabled %}
     {% set has_filters = filters|length > 0 %}
     {% set num_results = entities|length %}
+     <main>
 
-    <table class="table datagrid {{ entities is empty ? 'datagrid-empty' }}">
+<body id="app-container" class="menu-default show-spinner">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <h1>Datatables Rows</h1>
+
+                    <div class="top-right-button-container">
+                    
+                        <div class="btn-group">
+                            <button class="btn btn-outline-primary btn-lg dropdown-toggle" type="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                EXPORT
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" id="dataTablesCopy" href="#">Copy</a>
+                                <a class="dropdown-item" id="dataTablesExcel" href="#">Excel</a>
+                                <a class="dropdown-item" id="dataTablesCsv" href="#">Csv</a>
+                                <a class="dropdown-item" id="dataTablesPdf" href="#">Pdf</a>
+                            </div>
+                        </div>
+                                                <div class="btn-group">
+                                                    <button class="btn btn-outline btn-lg "
+                                                        {% block page_actions %}
+                            {% if filters|length > 0 %}
+                                <div class="datagrid-filters">
+                                    {% block filters %}
+                                        {% set applied_filters = ea.request.query.all['filters']|default([])|keys %}
+                                    
+                                            <a href="#" data-href="{{ ea_url().setAction('renderFilters').includeReferrer() }}" class= {{ applied_filters ? 'action-filters-applied' }}" data-bs-toggle="modal" data-bs-target="#modal-filters">
+                                                <i class="fa fa-filter fa-fw"></i> {{ 'filter.title'|trans(ea.i18n.translationParameters, 'EasyAdminBundle') }}{% if applied_filters %} <span class="text-primary">({{ applied_filters|length }})</span>{% endif %}
+                                            </a>
+                                            {% if applied_filters %}
+                                                <a href="{{ ea_url().unset('filters') }}" class="btn btn-secondary action-filters-reset">
+                                                    <i class="fa fa-close"></i>
+                                                </a>
+                                            {% endif %}
+                                        </div>
+                                    {% endblock filters %}
+                                </div>
+                            {% endif %}
+
+                            {% block global_actions %}
+                                <div class="global-actions">
+                                    {% for action in global_actions %}
+                                        {{ include(action.templatePath, { action: action }, with_context = false) }}
+                                    {% endfor %}
+                                </div>
+                            {% endblock global_actions %}
+                        
+                        {% endblock page_actions %}
+
+                                                </div>
+                 
+                          <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
+                        <ol class="breadcrumb pt-0">
+                            <li class="breadcrumb-item">
+                                <a href="#">Home</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="#">Library</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Data</li>
+                        </ol>
+                    </nav>
+                     <div class="mb-2">
+                        <a class="btn pt-0 pl-0 d-inline-block d-md-none" data-toggle="collapse" href="#displayOptions"
+                            role="button" aria-expanded="true" aria-controls="displayOptions">
+                            Display Options
+                            <i class="simple-icon-arrow-down align-middle"></i>
+                        </a>
+                        <div class="collapse dont-collapse-sm" id="displayOptions">
+                            <div class="d-block d-md-inline-block">
+                                <div class="search-sm d-inline-block float-md-left mr-1 mb-1 align-top">
+                                    <input class="form-control" placeholder="Search Table" id="searchDatatable">
+                                </div>
+                            </div>
+                            <div class="float-md-right dropdown-as-select" id="pageCountDatatable">
+                                <span class="text-muted text-small">Displaying 1-10 of 40 items </span>
+                                <button class="btn btn-outline-dark btn-xs dropdown-toggle" type="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    10
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="#">5</a>
+                                    <a class="dropdown-item active" href="#">10</a>
+                                    <a class="dropdown-item" href="#">20</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="separator"></div>
+                </div>
+            </div>
+<div class="col-12 mb-4 data-table-rows data-tables-hide-filter">
+                    <div id="datatableRows_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer"><div class="row view-filter"><div class="col-sm-12"><div class="float-left"></div><div class="float-right"><div id="datatableRows_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="datatableRows"></label></div></div><div class="clearfix"></div></div></div>
+  <table id="datatableRows" class="data-table responsive nowrap dataTable no-footer dtr-inline" data-order="[[ 1, &quot;desc&quot; ]]" role="grid" style="width: 1141px;">
         {% if num_results > 0 %}
             <thead>
             {% block table_head %}
-                <tr>
-                    {% if has_batch_actions %}
-                        <th>
-                            <div class="form-check">
-                                <span><input type="checkbox" class="form-check-input form-batch-checkbox-all"></span>
-                            </div>
-                        </th>
-                    {% endif %}
+                <tr class="list-item-heading">
 
-                    {% set ea_sort_asc = constant('EasyCorp\\Bundle\\EasyAdminBundle\\Config\\Option\\SortOrder::ASC') %}
+                   {% set ea_sort_asc = constant('EasyCorp\\Bundle\\EasyAdminBundle\\Config\\Option\\SortOrder::ASC') %}
                     {% set ea_sort_desc = constant('EasyCorp\\Bundle\\EasyAdminBundle\\Config\\Option\\SortOrder::DESC') %}
                     {% for field in entities|first.fields ?? [] %}
                         {% set is_sorting_field = ea.search.isSortingField(field.property) %}
@@ -95,29 +147,26 @@
                         </th>
                     {% endfor %}
 
+                   
                     <th {% if ea.crud.showEntityActionsAsDropdown %}width="10px"{% endif %} dir="{{ ea.i18n.textDirection }}">
                         <span class="sr-only">{{ 'action.entity_actions'|trans(ea.i18n.translationParameters, 'EasyAdminBundle') }}</span>
+                        action
                     </th>
                 </tr>
+                
             {% endblock table_head %}
+           
             </thead>
         {% endif %}
-
-        <tbody>
+        
+       <tbody >
+   
         {% block table_body %}
             {% for entity in entities %}
                 {% if not entity.isAccessible %}
                     {% set some_results_are_hidden = true %}
                 {% else %}
                     <tr data-id="{{ entity.primaryKeyValueAsString }}">
-                        {% if has_batch_actions %}
-                            <td class="batch-actions-selector">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input form-batch-checkbox" value="{{ entity.primaryKeyValue }}">
-                                </div>
-                            </td>
-                        {% endif %}
-
                         {% for field in entity.fields %}
                             <td data-label="{{ field.label|e('html_attr') }}" class="{{ field.property == sort_field_name ? 'sorted' }} text-{{ field.textAlign }} {{ field.cssClass }}" dir="{{ ea.i18n.textDirection }}">
                                 {{ include(field.templatePath, { field: field, entity: entity }, with_context = false) }}
@@ -128,22 +177,7 @@
                             <td class="actions {{ ea.crud.showEntityActionsAsDropdown ? 'actions-as-dropdown' }}">
                                 {% if entity.actions.count > 0 %}
                                     {% if ea.crud.showEntityActionsAsDropdown %}
-                                        <div class="dropdown dropdown-actions">
-                                            <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                {# don't use FontAwesome 'fa-ellipsis-h' icon here because it doesn't look good #}
-                                                {# this icon is 'dots-horizontal' icon from https://heroicons.com/ #}
-                                                <svg xmlns="http://www.w3.org/2000/svg" height="21" width="21" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
-                                                </svg>
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                {% for action in entity.actions %}
-                                                    {{ include(action.templatePath, { action: action, entity: entity, isIncludedInDropdown: ea.crud.showEntityActionsAsDropdown }, with_context = false) }}
-                                                {% endfor %}
-                                            </div>
-                                        </div>
-                                    {% else %}
+                                       
                                         {% for action in entity.actions %}
                                             {{ include(action.templatePath, { action: action, entity: entity, isIncludedInDropdown: ea.crud.showEntityActionsAsDropdown }, with_context = false) }}
                                         {% endfor %}
@@ -185,21 +219,29 @@
                 </tr>
             {% endif %}
         {% endblock table_body %}
-        </tbody>
-
-        <tfoot>
-        {% block table_footer %}
-        {% endblock table_footer %}
-        </tfoot>
-    </table>
-
-    {% if entities|length > 0 %}
-        <div class="content-panel-footer without-padding without-border">
+      
+    </tbody>
+ </table>
+             </div>
+             </div>
+             </div>
+             </div>
+             </div> {% if entities|length > 0 %}
+       <div class="dataTables_paginate paging_simple_numbers" id="datatableRows_paginate">
             {% block paginator %}
                 {{ include(ea.templatePath('crud/paginator'), { render_detailed_pagination: not some_results_are_hidden }) }}
             {% endblock paginator %}
         </div>
     {% endif %}
+                </div>
+
+        <tfoot>
+        {% block table_footer %}
+        {% endblock table_footer %}
+        </tfoot>
+    
+
+   
 
     {% block delete_form %}
         {{ include('@EasyAdmin/crud/includes/_delete_form.html.twig', with_context = false) }}
@@ -212,4 +254,7 @@
     {% if has_batch_actions %}
         {{ include('@EasyAdmin/crud/includes/_batch_action_modal.html.twig', {}, with_context = false) }}
     {% endif %}
+    </body>
+
 {% endblock main %}
+

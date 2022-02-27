@@ -177,7 +177,7 @@
     {% if isEmptyCollection or form.vars.prototype is defined %}
         {% set attr = attr|merge({'data-empty-collection': block('empty_collection') }) %}
     {% endif %}
-
+ff
     {% if allow_add|default(false) %}
         <button type="button" class="btn btn-link field-collection-add-button">
             <i class="fa fa-plus pr-1"></i>
@@ -192,7 +192,7 @@
     {% set allows_deleting_items = form_parent(form).vars.allow_delete|default(false) %}
     {% set render_expanded = form_parent(form).vars.ea_crud_form.ea_field.customOptions.get('renderExpanded') ?? false %}
     {% set delete_item_button %}
-        <button type="button" class="btn btn-link btn-link-danger field-collection-delete-button"
+        <button type="button" class="btn btn-link btn-link field-collection-delete-button"
                 title="{{ 'action.remove_item'|trans({}, 'EasyAdminBundle') }}">
             <i class="far fa-trash-alt"></i>
         </button>

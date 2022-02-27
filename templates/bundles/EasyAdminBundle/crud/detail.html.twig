@@ -1,3 +1,4 @@
+
 {# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
 {# @var entity \EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto #}
 {% extends ea.templatePath('layout') %}
@@ -7,24 +8,36 @@
 {% block body_id 'ea-detail-' ~ entity.name ~ '-' ~ entity.primaryKeyValue %}
 {% block body_class 'ea-detail ea-detail-' ~ entity.name %}
 
-{% block content_title %}
-    {%- apply spaceless -%}
-        {% set custom_page_title = ea.crud.customPageTitle(pageName, entity ? entity.instance : null) %}
-        {{ custom_page_title is null
-            ? (ea.crud.defaultPageTitle|trans(ea.i18n.translationParameters, 'EasyAdminBundle'))|raw
-            : (custom_page_title|trans(ea.i18n.translationParameters))|raw }}
-    {%- endapply -%}
-{% endblock %}
-
-{% block page_actions %}
+{% block main %}
+   <main>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <h1>Dashboard</h1>
+                    <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
+                        <ol class="breadcrumb pt-0">
+                            <li class="breadcrumb-item">
+                                <a href="#">Home</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="#">Library</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Data</li>
+                        </ol>
+                    </nav>{% block page_actions %}
     {% for action in entity.actions %}
         {{ include(action.templatePath, { action: action }, with_context = false) }}
     {% endfor %}
 {% endblock %}
+                    <div class="separator mb-5"></div>
+                </div>
+            
+
+
 
 {% block content_footer_wrapper '' %}
 
-{% block main %}
+
     {% block detail_fields %}
         {% set form_panel_is_already_open = false %}
         {% for field in entity.fields %}
@@ -53,7 +66,7 @@
     {% block delete_form %}
         {{ include('@EasyAdmin/crud/includes/_delete_form.html.twig', { entity_id: entity.primaryKeyValue }, with_context = false) }}
     {% endblock delete_form %}
-{% endblock %}
+
 
 {% macro open_form_field_panel(field = null) %}
     {% set panel_name = field is null ? null : 'content-' ~ field.uniqueId %}
@@ -121,3 +134,39 @@
         </dd>
     </div>
 {% endmacro %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+ </div>
+    </main>
+
+{% endblock %}
