@@ -35,21 +35,8 @@
                     <h1>Datatables Rows</h1>
 
                     <div class="top-right-button-container">
-                    
-                        <div class="btn-group">
-                            <button class="btn btn-outline-primary btn-lg dropdown-toggle" type="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                EXPORT
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" id="dataTablesCopy" href="#">Copy</a>
-                                <a class="dropdown-item" id="dataTablesExcel" href="#">Excel</a>
-                                <a class="dropdown-item" id="dataTablesCsv" href="#">Csv</a>
-                                <a class="dropdown-item" id="dataTablesPdf" href="#">Pdf</a>
-                            </div>
-                        </div>
-                                                <div class="btn-group">
-                                                    <button class="btn btn-outline btn-lg "
+                 
+                     <button class="btn btn-outline btn-lg ">
                                                         {% block page_actions %}
                             {% if filters|length > 0 %}
                                 <div class="datagrid-filters">
@@ -77,8 +64,8 @@
                                 </div>
                             {% endblock global_actions %}
                         
-                        {% endblock page_actions %}
-
+                        {% endblock page_actions %} 
+                       
                                                 </div>
                  
                           <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
@@ -104,18 +91,7 @@
                                     <input class="form-control" placeholder="Search Table" id="searchDatatable">
                                 </div>
                             </div>
-                            <div class="float-md-right dropdown-as-select" id="pageCountDatatable">
-                                <span class="text-muted text-small">Displaying 1-10 of 40 items </span>
-                                <button class="btn btn-outline-dark btn-xs dropdown-toggle" type="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    10
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="#">5</a>
-                                    <a class="dropdown-item active" href="#">10</a>
-                                    <a class="dropdown-item" href="#">20</a>
-                                </div>
-                            </div>
+                          
                         </div>
                     </div>
                     <div class="separator"></div>
@@ -221,28 +197,26 @@
         {% endblock table_body %}
       
     </tbody>
- </table>
+ </table> 
              </div>
              </div>
              </div>
              </div>
-             </div> {% if entities|length > 0 %}
-       <div class="dataTables_paginate paging_simple_numbers" id="datatableRows_paginate">
-            {% block paginator %}
-                {{ include(ea.templatePath('crud/paginator'), { render_detailed_pagination: not some_results_are_hidden }) }}
-            {% endblock paginator %}
-        </div>
-    {% endif %}
-                </div>
-
+             </div>
+             </div>
+   </div>
         <tfoot>
         {% block table_footer %}
         {% endblock table_footer %}
         </tfoot>
-    
-
-   
-
+          {% if entities|length > 0 %}
+        <div class="">
+            {% block paginatori %}
+                {{ include(ea.templatePath('crud/paginator'), { render_detailed_pagination: not some_results_are_hidden }) }}
+            {% endblock paginatori %}
+        </div>
+    {% endif %}
+ 
     {% block delete_form %}
         {{ include('@EasyAdmin/crud/includes/_delete_form.html.twig', with_context = false) }}
     {% endblock delete_form %}

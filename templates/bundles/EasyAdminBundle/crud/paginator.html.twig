@@ -1,4 +1,4 @@
-{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext
 {# @var paginator \EasyCorp\Bundle\EasyAdminBundle\Orm\EntityPaginator #}
 {% trans_default_domain 'EasyAdminBundle' %}
 
@@ -10,8 +10,9 @@
     </div>
 
     <nav class="pager list-pagination-paginator {{ not paginator.hasPreviousPage ? 'first-page' }} {{ not paginator.hasNextPage ? 'last-page' }}">
-        <ul class="pagination">
-            <li class="page-item {{ not paginator.hasPreviousPage ? 'disabled' }}">
+   <div >
+        <ul class="pagination " style="  text-align: center" >
+            <li  class="page-item {{ not paginator.hasPreviousPage ? 'disabled' }}">
                 <a class="page-link" href="{{ not paginator.hasPreviousPage ? '#' : paginator.generateUrlForPage(paginator.previousPage) }}">
                     <i class="fa fa-angle-left mx-1"></i> <span class="btn-label">{{ 'paginator.previous'|trans }}</span>
                 </a>
@@ -38,6 +39,7 @@
                     <span class="btn-label">{{ 'paginator.next'|trans }}</span> <i class="fa fa-angle-right mx-1"></i>
                 </a>
             </li>
-        </ul>
+         </ul>
+         </div> 
     </nav>
-</div>
+</div> #}

@@ -13,6 +13,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 
 class UserCrudController extends AbstractCrudController
 {
+    
     public static function getEntityFqcn(): string
     {
         return User::class;
@@ -49,5 +50,9 @@ return $actions
             
         ];
     }
+   
     
+        
+ 
+
 }
