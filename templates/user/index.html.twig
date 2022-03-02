@@ -1,7 +1,9 @@
 
 
-{% block main %}
- <div class="container-fluid">
+ {% block main%}
+
+ <main>
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
                     <h1>Datatables Rows</h1>
@@ -60,9 +62,11 @@
                     </div>
                     <div class="separator"></div>
                 </div>
-            </div>
+         
 
-            <div class="row">
+      
+              
+               <div class="row">
                 <div class="col-12 mb-4 data-table-rows data-tables-hide-filter">
                     <table id="datatableRows" class="data-table responsive nowrap"
                         data-order="[[ 1, &quot;desc&quot; ]]">
@@ -72,12 +76,15 @@
                                 <th>Sales</th>
                                 <th>Stock</th>
                                 <th>Category</th>
+                                <th>action</th>
                                 <th class="empty">&nbsp;</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {%for user in user %}
+    {%for user in user %}
+                         
                             <tr>
+                              
                                 <td scope="row">
                                     <p class="list-item-heading">{{user.id}}</p>
                                 </td>
@@ -91,6 +98,14 @@
                                     <p class="text-muted">{{user.email}}</p>
                                 </td>
                                 <td>
+                                    <button type="button" class="btn btn-outline-primary" data-toggle="modal"
+                                data-backdrop="static" data-target="#exampleModalRight">show</button>
+                                </td>
+                                
+                                
+                            </tr>
+                          {% endfor %}
+                      <td>
                                     <label
                                         class="custom-control custom-checkbox mb-1 align-self-center data-table-rows-check">
                                         <input type="checkbox" class="custom-control-input">
@@ -98,29 +113,21 @@
                                     </label>
                                 </td>
                             </tr>
-                          {% endfor %}
+ 
                             
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
+        
     </main>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+          
+  
+  
+ 
 {% endblock main %}
 
+
+          
+   

@@ -1,5 +1,6 @@
 
 
+
 {% block main %}
  <div class="container-fluid">
             <div class="row">
@@ -62,65 +63,28 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-12 mb-4 data-table-rows data-tables-hide-filter">
-                    <table id="datatableRows" class="data-table responsive nowrap"
-                        data-order="[[ 1, &quot;desc&quot; ]]">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Sales</th>
-                                <th>Stock</th>
-                                <th>Category</th>
-                                <th class="empty">&nbsp;</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {%for user in user %}
-                            <tr>
-                                <td scope="row">
-                                    <p class="list-item-heading">{{user.id}}</p>
-                                </td>
-                                <td>
-                                    <p class="text-muted">{{user.username}}</p>
-                                </td>
-                                <td>
-                                    <p class="text-muted">{{user.cin}}</p>
-                                </td>
-                                <td>
-                                    <p class="text-muted">{{user.email}}</p>
-                                </td>
-                                <td>
-                                    <label
-                                        class="custom-control custom-checkbox mb-1 align-self-center data-table-rows-check">
-                                        <input type="checkbox" class="custom-control-input">
-                                        <span class="custom-control-label">&nbsp;</span>
-                                    </label>
-                                </td>
-                            </tr>
-                          {% endfor %}
-                            
-                        </tbody>
-                    </table>
+            <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">user</h4>
+            </div>
+            <div class="modal-body">
+                <div class="span4 offset2 cards">
+                   
+                  {{user.cin}}
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
                 </div>
             </div>
         </div>
     </main>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 {% endblock main %}
+
 

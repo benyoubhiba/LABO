@@ -1,4 +1,7 @@
-
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{# @var entities \EasyCorp\Bundle\EasyAdminBundle\Collection\EntityDtoCollection #}
+{# @var paginator \EasyCorp\Bundle\EasyAdminBundle\Orm\EntityPaginator #}
+{% extends ea.templatePath('layout') %}
 
 {% block main %}
  <div class="container-fluid">
@@ -76,7 +79,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {%for user in user %}
+                            
                             <tr>
                                 <td scope="row">
                                     <p class="list-item-heading">{{user.id}}</p>
@@ -98,7 +101,7 @@
                                     </label>
                                 </td>
                             </tr>
-                          {% endfor %}
+ 
                             
                         </tbody>
                     </table>
