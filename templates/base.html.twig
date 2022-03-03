@@ -13,13 +13,19 @@
    
 
   	{% block stylesheets %}
-      
-         <link rel="stylesheet" href="font/iconsmind-s/css/iconsminds.css" />
-        <link rel="stylesheet" href="font/simple-line-icons/css/simple-line-icons.css" />
-			<link rel="stylesheet" href="css/vendor/bootstrap.min.css"/>
-			<link rel="stylesheet" href="css/vendor/bootstrap.rtl.only.min.css"/>
-			<link rel="stylesheet" href="css/vendor/bootstrap-float-label.min.css"/>
-			<link rel="stylesheet" href="css/main.css"/>
+      <link rel="stylesheet" href="font/iconsmind-s/css/iconsminds.css" />
+    <link rel="stylesheet" href="font/simple-line-icons/css/simple-line-icons.css" />
+        <link rel="stylesheet" href="css/vendor/dataTables.bootstrap4.min.css" />
+    <link rel="stylesheet" href="css/vendor/datatables.responsive.bootstrap4.min.css" />
+    <link rel="stylesheet" href="css/vendor/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/vendor/bootstrap-float-label.min.css" />
+
+    <link rel="stylesheet" href="css/vendor/bootstrap.rtl.only.min.css" />
+    <link rel="stylesheet" href="css/vendor/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="css/vendor/component-custom-switch.min.css" />
+    <link rel="stylesheet" href="css/vendor/select2.min.css" />
+    <link rel="stylesheet" href="css/vendor/select2-bootstrap.min.css" />
+    <link rel="stylesheet" href="css/main.css" />
 		{% endblock %}
 
 </head>
@@ -713,17 +719,36 @@
                     </li>
                 </ul>
 
-             </div>
-             
-       
+            </div>
         </div>
-   
-        {% block main %}{% endblock %}
     </div>
-              
+             {% block main %}{% endblock %}  
  
  
-
+ <footer class="page-footer">
+        <div class="footer-content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 col-sm-6">
+                        <p class="mb-0 text-muted">ColoredStrategies 2019</p>
+                    </div>
+                    <div class="col-sm-6 d-none d-sm-block">
+                        <ul class="breadcrumb pt-0 pr-0 float-right">
+                            <li class="breadcrumb-item mb-0">
+                                <a href="#" class="btn-link">Review</a>
+                            </li>
+                            <li class="breadcrumb-item mb-0">
+                                <a href="#" class="btn-link">Purchase</a>
+                            </li>
+                            <li class="breadcrumb-item mb-0">
+                                <a href="#" class="btn-link">Docs</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
       
                         
               
@@ -745,3 +770,4 @@
 
   
 
+       

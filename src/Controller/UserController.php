@@ -74,14 +74,64 @@ public function __construct(UserRepository $userRepository)
            return $this->redirectToRoute('user');
         
         }
-        return $this->renderForm('user/add.html.twig', [
+        return $this->renderForm('user/index.html.twig', [
+            'form' => $form,
+        ]);
+}
+/**
+     * @Route("/edit/user{id}", name="user_edit")
+     */
+   
+    public function editUser(User $user ,Request $request,EntityManagerInterface $entityManager )
+    {
+
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted()&& $form->isValid()){
+            $entityManager->persist($user);
+            $entityManager->flush();
+     $this->addFlash(
+         'info',
+         'le tag et bien ajouter'
+
+     );
+           return $this->redirectToRoute('user');
+        
+        }
+        return $this->renderForm('user/edit.html.twig', [
             'form' => $form,
         ]);
          
 
 
+}
 
+/**
+     * @Route("/delete/user{id}", name="user_delete")
+     */
+   
+    public function deleteUser(User $user ,EntityManagerInterface $entityManager )
+    {
+
+       
+        
+            $entityManager->remove($user);
+            $entityManager->flush();
+     $this->addFlash(
+         'info',
+         'le tag et bien ajouter'
+
+     );
+           return $this->redirectToRoute('user');
+        
+        }
+        
+         
 
 
 }
-}
+
+
+
+
+
