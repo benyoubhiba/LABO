@@ -51,17 +51,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $email;
 
     /**
-     * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="id_user")
-     */
+     * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="id")
+     * @ORM\JoinColumn(onDelete="SET NULL")
+     **/
     private $produits;
 
     /**
-     * @ORM\OneToMany(targetEntity=Facture::class, mappedBy="id_user")
+     * @ORM\OneToMany(targetEntity=Facture::class, mappedBy="id")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $factures;
 
     /**
-     * @ORM\OneToMany(targetEntity=Stock::class, mappedBy="id_user")
+     * @ORM\OneToMany(targetEntity=Stock::class, mappedBy="id")
+     *@ORM\JoinColumn(onDelete="SET NULL")
+     * 
      */
     private $stocks;
 

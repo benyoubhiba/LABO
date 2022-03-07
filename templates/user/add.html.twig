@@ -1,48 +1,33 @@
+<!-- Modal -->{{ form_start(form) }}
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Formulaire de Produits</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+			</div>
+			<div class="modal-body">
+			
+<label class="form-group has-float-label mb-4">
+{{ form_row(form.username,{'attr':{'class':'form-control'}}) }}
+</label>
 
-   
+<label class="form-group has-float-label mb-4">
+{{ form_row(form.cin,{'attr':{'class':'form-control'}}) }}
+</label>
+
+<label class="form-group has-float-label mb-4">
+{{ form_row(form.email,{'attr':{'class':'form-control'}}) }}
+</label>
 
 
-
-
- {% block main %}
-{{ form_start(form) }}
- <a  class="btn btn-primary" data-toggle="modal" data-target="#add_post_button" href="{{ path('user_create')}}"> add</a>
-    <div class="modal fade" id="add_user" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Créer un user</h4>
-                </div>
-                <div class="modal-body">
-                        
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                   
-                </div>
-            </div>
-        </div>
-    </div>
-   {{ form_widget(form.email) }}
-{% endblock %} 
-<script>$('#add_post_button').on("click", function () {
-    $.ajax({
-        url: Routing.generate('user_create'),
-        type: 'POST',
-        dataType: 'html',
-        success: function (code_html, statut) {
-            $(code_html).appendTo('#modal_form');
-            $('#add_user').modal('show');
- 
-            $('#submit_user').on("click", function () {
-                var data = $("[name='post']").serialize();
-                $.ajax({
-                    url: Routing.generate('user_create'),
-                    type: 'POST',
-                    data: data
-                });
-            });
-        }
-    });
-});</script>
- 
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<div class="d-flex justify-content-start align-items-center">
+					<button class="btn btn-primary  btn-shadow" type="submit">AJOUTER</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div> {{ form_end(form) }}
