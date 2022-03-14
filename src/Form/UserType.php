@@ -3,10 +3,13 @@
 namespace App\Form;
 use App\Entity\User;
 
+
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;                                        
 use EasyCorp\Bundle\EasyAdminBundle\Form\Type  ;                
  use Symfony\Component\Form\ChoiceList\ChoiceList;
@@ -23,11 +26,11 @@ class UserType extends AbstractType
         {
            $builder
            ->add('username', TextType::class)
-           ->add('email', TextType::class)
+           ->add('email', EmailType::class)
            ->add('cin', TextType::class)
-           ->add('password', TextType::class)  ->add('save', SubmitType::class, ['label' => 'Valider']);
-         
-          
+           ->add('phone', TextType::class)
+           ->add('password',PasswordType::class)
+           ->add('save', SubmitType::class, ['label' => 'Valider']);
         }
     }
     public function configureOptions(OptionsResolver $resolver): void

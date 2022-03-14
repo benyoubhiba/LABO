@@ -34,10 +34,10 @@
 									<input class="form-control" placeholder="Search Table" id="searchDatatable">
 								</div>
 							</div>
-						
-												
 					
-							<div class="float-md-right dropdown-as-select" id="pageCountDatatable">{{ form_start(form)}}
+												
+					{# ajouter #}
+						<div class="float-md-right dropdown-as-select" id="pageCountDatatable">{{ form_start(form) }}
 	 						<div class="btn-group">
 						        <button type="button" class="btn btn-outline-primary" data-toggle="modal"
                                 data-backdrop="static" data-target="#exampleModalRight">Add</button>
@@ -56,35 +56,32 @@
 
                                     
                                                 <div class="form-group">
-                                                    <label>Title</label>
-                                                    <input type="text" class="form-control" placeholder="">
+                                            			
+												<label class="form-group has-float-label mb-4">
+													{{ form_row(form.username,{'attr':{'class':'form-control'}}) }}
+												</label>
                                                 </div>
+												
                                                 <div class="form-group">
-                                                    <label>Details</label>
-                                                    <textarea placeholder="" class="form-control" rows="2"></textarea>
+                                                 	<label class="form-group has-float-label mb-4">
+													{{ form_row(form.email,{'attr':{'class':'form-control'}}) }}
+												</label>
                                                 </div>
-                      <div class="form-group">
-                                                    <label>Category</label>
-                                                    <select class="form-control">
-                                                        <option label="&nbsp;">&nbsp;</option>
-                                                        <option value="Flexbox">Flexbox</option>
-                                                        <option value="Sass">Sass</option>
-                                                        <option value="React">React</option>
-                                                    </select>
+                    						  <div class="form-group">
+                                                 	<label class="form-group has-float-label mb-4">
+													{{ form_row(form.cin,{'attr':{'class':'form-control'}}) }}
+												</label>
+												 <div class="form-group">
+                                                 	<label class="form-group has-float-label mb-4">
+													{{ form_row(form.phone,{'attr':{'class':'form-control'}}) }}
+												</label>
                                                 </div>
-
-
-                           
-                                                <div class="form-group">
-                                                    <label>Status</label>
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                            id="customCheck1">
-                                                        <label class="custom-control-label"
-                                                            for="customCheck1">Completed</label>
-                                                    </div>
+												  <div class="form-group">
+                                                  	<label class="form-group has-float-label mb-4">
+													{{ form_row(form.password,{'attr':{'class':'form-control'}}) }}
+												</label>
                                                 </div>
-                                           {{ form_end(form)}}
+                                      
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-outline-primary"
@@ -93,10 +90,10 @@
                                         </div>
                                    
                                 </div>
-                            </div>
+                            </div>{{ form_end(form) }}
 												
-					</div>  
-								
+					   </div>  
+					{# fin_modal_ajouter #}
 							</div>
 						</div>
 					</div>
@@ -124,6 +121,7 @@
 										<th>Nom</th>
 										<th>Cin</th>
 										<th>email</th>
+								
 										<th>action</th>
 										<th class="empty">&nbsp;</th>
 									</tr>
@@ -143,6 +141,7 @@
 											<td>
 												<p class="text-muted">{{user.email}}</p>
 											</td>
+										
 											<td>
 												<a href="{{path('user_show',{id:user.id})}}" data-toggle="modal" data-target="#show-{{user.id}}" class="btn  btn-warning">show</a>
 
@@ -189,60 +188,16 @@
 											</td>
 
 											<td>
-
 												<a href="{{path('user_delete',{id:user.id})}}" class="btn  btn-danger" onclick="if(!confirm('Are you sure ?')) { return false; }">
 													Delete</a>
-
 											</td>
-
 											<td>
-	<a href="{{path('user_show',{id:user.id})}}" data-toggle="modal" data-target="#show-{{user.id}}" class="btn  btn-warning">show</a>
+								<a class="btn  btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="change('{{path('user_edit',{id:user.id})}}')">edit</i></a> 
 
-
-												<div class="modal fade" id="edit-{{user.id}}" tabindex="-1" role="dialog" aria-hidden="true">
-													<div class="modal-dialog" role="document">
-														<div class="modal-content">
-															<div class="modal-header">
-																<h5 class="modal-title" id="exampleModalLabel">Show User</h5>
-																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																	<span aria-hidden="true">&times;</span>
-																</button>
-															</div>
-															<div class="modal-body">
-
-																<div class="col-md-6">
-																	<label for="inputEmail4" class="form-label">Id
-																	</label>
-																	<p>{{user.id}}</p>
-																	<p></p>
-																</div>
-														 		<div class="col-md-6">
-																	<label for="inputPassword4" class="form-label">Cin
-																	</label>
-																	<p>{{user.cin}}</p>
-																</div>
-																<div class="col-12">
-																	<label for="inputAddress" class="form-label">
-																		Nom</label>
-																	<p>{{user.username}}</p>
-																</div>
-																<div class="col-12">
-																	<label for="inputAddress" class="form-label">
-																		Email
-																	</label>
-																	<p>{{user.email}}</p>
-																</div>
-
-															</div>
-
-														</div>
-													</div>
-												</div>
-												
-
-												 
 
 											</td>
+
+
 										</tr>
 									{% endfor %}
 								</tbody>
@@ -253,5 +208,6 @@
 			</div>
 		</div>
 	</main>
-	
+{% include "user/edit.html.twig" %}
+  
 {% endblock main %}
