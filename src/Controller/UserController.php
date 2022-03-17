@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-
+use Symfony\Component\Security\Core\Security;
 use App\Form\UserType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -20,7 +20,9 @@ use Doctrine\Persistence\ManagerRegistry;
 use App\Repository\ProduitRepository;
 use App\Repository\FactureRepository;
 use App\Repository\StockRepository;
-
+use Doctrine\ORM\Mapping\Id;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Config\Definition\Exception\Exception;
 class UserController extends AbstractController
 {
 
@@ -36,7 +38,6 @@ public function __construct(UserRepository $userRepository)
     public function form(user $user = null,Request $request,EntityManagerInterface $entityManager)
     {
         $users=$this->userRepository->findAll(); 
-      
      
         if(!$user){
             $user = new User();
@@ -59,8 +60,9 @@ public function __construct(UserRepository $userRepository)
     
         return $this->render('user/index.html.twig',[
             "user"=>$users,
-            'form'  => $form->createView(),
-            ]
+            'form'  => $form->createView()
+            ,
+             ] 
             );  
            
 }
@@ -85,11 +87,44 @@ public function __construct(UserRepository $userRepository)
         
         }
         return $this->renderForm('user/edit.html.twig', [
-            'form'  => $form->createView(),
+            'form' => $form,
         ]);
          
 
 
+}
+
+/** 
+ *  @Route("/getInfouser/{id}")
+*/
+
+public function getInfoExperience($id,EntityManagerInterface $em){
+   try {
+       $data = $this->em->find(Section::class,$id);
+
+       return $this->json($data,Response::HTTP_OK);
+   }catch(Exception $ex){
+       return $this->json("error j",Response::HTTP_BAD_REQUEST);
+   }
+}
+
+/**
+ *  @Route("/modifieruser")
+ */
+
+public function modifieruser(Request $request ,EntityManagerInterface $em){
+   try {
+       $data = json_decode($request->getContent());
+       $exp = $this->em->find(Section::class,(int)$data->id);
+       $exp->setcin($data->cin);
+       $exp->setusername($data->username);
+       $this->em->persist($exp);
+       $this->em->flush();
+
+       return $this->json("modifier success",Response::HTTP_OK);
+   }catch(Exception $ex){
+       return $this->json($ex,Response::HTTP_BAD_REQUEST);
+   }
 }
 
 /**
